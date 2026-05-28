@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Miles - Portfolio BTS SIO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Espace pour ta photo - tu pourras remplacer plus tard */
+        .photo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            margin: 0 auto 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            font-size: 2rem;
+        }
+
+        nav {
+            background-color: #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #2a5298;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        section h2 {
+            color: #1e3c72;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        details {
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        summary {
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            background: #e9ecef;
+            border-radius: 5px;
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::before {
+            content: "▶ ";
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        details[open] summary::before {
+            content: "▼ ";
+        }
+
+        .details-content {
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .skill-category h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .skill-category ul li {
+            background: white;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "●";
+            position: absolute;
+            left: -1.8rem;
+            color: #1e3c72;
+            font-size: 1.2rem;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        /* Carte heuristique */
+        .mindmap {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .mindmap-center {
+            background: #1e3c72;
+            color: white;
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 40px;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .mindmap-branches {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .mindmap-branch {
+            background: white;
+            border: 2px solid #1e3c72;
+            border-radius: 20px;
+            padding: 0.8rem 1.2rem;
+            width: 180px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .mindmap-sub {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 0.3rem;
+            font-weight: normal;
+        }
+
+        /* CV - version originale que tu avais validée */
+        .cv-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+        }
+
+        .cv-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .cv-header-text h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cv-header-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin: 0.5rem 0;
+        }
+
+        .cv-body {
+            padding: 2rem;
+        }
+
+        .cv-section {
+            margin-bottom: 1.8rem;
+        }
+
+        .cv-section h3 {
+            color: #1e3c72;
+            border-left: 4px solid #1e3c72;
+            padding-left: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .cv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .cv-card {
+            background: #f9f9f9;
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .cv-card strong {
+            color: #1e3c72;
+        }
+
+        .btn-download {
+            display: inline-block;
+            background: #1e3c72;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-download:hover {
+            background: #2a5298;
+        }
+
+        .contact-info {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form input[type="submit"] {
+            background: #1e3c72;
+            color: white;
+            width: auto;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul li a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Espace pour ta photo : remplace ce div par <img src="ta-photo.jpg" class="photo-placeholder" style="object-fit:cover"> quand tu auras ta photo -->
+    <div class="photo-placeholder">📷</div>
+    <h1>Nathan Miles</h1>
+    <p>Étudiant en BTS SIO – Option SLAM | Développement d'applications</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#stage">Stage & Alternance</a></li>
+        <li><a href="#veille">Veille</a></li>
+        <li><a href="#mindmap">Carte heuristique</a></li>
+        <li><a href="#cv">CV</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <section id="about">
+        <h2>À propos de moi</h2>
+        <p>Je m'appelle Nathan Miles et je suis étudiant en BTS SIO, option SLAM (Solutions Logicielles et Applications Métiers) au <strong>CNED</strong>.</p>
+        <p>Ce portfolio a pour but de présenter mes réalisations, les compétences acquises et les projets auxquels j'ai participé durant ma formation.</p>
+        <p>Après un bac ES (spécialités Maths et SES) et une première année de licence d'hébreu à l'<strong>Université de Lille</strong>, j'ai choisi de me reconvertir dans l'informatique. La logique, la résolution de problèmes et la création de solutions utiles me passionnent. Mon objectif : devenir développeur full-stack.</p>
+        <p>Calme, méthodique et curieux, je pratique les échecs à bon niveau (~1500 ELO), ce qui développe ma réflexion stratégique et ma patience.</p>
+        
+        <div style="margin-top: 1.5rem; padding: 1rem; background: #e9ecef; border-radius: 8px;">
+            <h3>🎯 Métiers recherchés</h3>
+            <ul>
+                <li>Développeur applicatif (stage)</li>
+                <li>Développeur full-stack junior</li>
+                <li>Intégrateur web</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="parcours">
+        <h2>Mon parcours</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2023-2024</div>
+                <div><strong>Baccalauréat ES</strong> - Spécialités Maths et SES</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2024-2025</div>
+                <div><strong>1ʀᴇ année Licence Hébreu</strong> - Université de Lille</div>
+                <div>Formation humaniste enrichissante qui a confirmé ma volonté de me tourner vers l'informatique</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025-2026</div>
+                <div><strong>BTS SIO 1ʀᴇ année</strong> - Option SLAM (CNED)</div>
+                <div>Première année en cours d'acquisition des compétences développement</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="competences">
+        <h2>Mes compétences</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Langages (en cours)</h3>
+                <ul>
+                    <li>C# (Visual Studio) - POO, sérialisation</li>
+                    <li>PHP/HTML/CSS/JS (NetBeans)</li>
+                    <li>Java (Eclipse)</li>
+                    <li>Python (PyCharm)</li>
+                    <li>SQL (MySQL, PostgreSQL, MongoDB)</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Frameworks & CMS</h3>
+                <ul>
+                    <li>WordPress</li>
+                    <li>Symfony (en apprentissage)</li>
+                    <li>Flask (en apprentissage)</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Outils & Méthodes</h3>
+                <ul>
+                    <li>Git / GitHub (en cours de prise en main)</li>
+                    <li>Merise / UML</li>
+                    <li>Qualité logicielle : KISS, DRY, SOLID</li>
+                    <li>Bureautique : Word, Excel, PowerPoint</li>
+                    <li>Création 3D : Blender (initiation)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projets">
+        <h2>Mes projets</h2>
+
+        <details>
+            <summary>📅 Agenda C# (POO et sérialisation)</summary>
+            <div class="details-content">
+                <p><strong>Statut :</strong> ✅ Projet terminé (académique)</p>
+                <p><strong>Description :</strong> Application de gestion d'agenda avec ajout, modification, suppression d'événements, sauvegarde par sérialisation JSON/XML.</p>
+                <p><strong>Technologies :</strong> C#, .NET, sérialisation</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>🔐 Gestion des habilitations (C# MVC)</summary>
+            <div class="details-content">
+                <p><strong>Statut :</strong> 🚧 En cours (projet académique)</p>
+                <p><strong>Description :</strong> Application de gestion des droits utilisateurs avec authentification, rôles et permissions, base MySQL.</p>
+                <p><strong>Technologies :</strong> C#, MVC, MySQL, Entity Framework</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>🛒 Site e-commerce WordPress</summary>
+            <div class="details-content">
+                <p><strong>Statut :</strong> 🚧 En cours (projet académique)</p>
+                <p><strong>Description :</strong> Création d'un site de vente en ligne avec WooCommerce, gestion produits et paiements.</p>
+                <p><strong>Technologies :</strong> WordPress, WooCommerce, PHP</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>🎮 Jeu de combat 2D Client/Serveur (Java)</summary>
+            <div class="details-content">
+                <p><strong>Statut :</strong> 🔒 Projet privé – non communicable</p>
+                <p><strong>Description :</strong> Jeu multijoueur en réseau avec interface graphique, pattern MVC et sockets. Le code est hébergé sur un dépôt privé GitHub.</p>
+                <p><strong>Technologies :</strong> Java, Swing/JavaFX, Sockets, Git/GitHub</p>
+            </div>
+        </details>
+    </section>
+
+    <section id="stage">
+        <h2>Stage & Alternance</h2>
+        
+        <details>
+            <summary>📌 Stage de 1ʀᴇ année (mai-juin 2026)</summary>
+            <div class="details-content">
+                <p><strong>Entreprise :</strong> À rechercher</p>
+                <p><strong>Objectif :</strong> Découverte du milieu professionnel, premières missions de développement.</p>
+                <p><em>Cette section sera complétée après la période de stage.</em></p>
+            </div>
+        </details>
+
+        <details>
+            <summary>🔄 Alternance 2ᵉ année (dès septembre 2026)</summary>
+            <div class="details-content">
+                <p><strong>Entreprise :</strong> [Nom de l'entreprise – à confirmer]</p>
+                <p><strong>Mission évoquée par l'entreprise :</strong> Développement d'applications web en PHP/Symfony, maintenance d'outils internes en C#, et participation à des projets d'évolution du système d'information.</p>
+                <p><strong>Technologies cibles :</strong> PHP, Symfony, C#, MySQL, HTML/CSS/JS</p>
+                <p><strong>Défis anticipés :</strong> Montée en compétence rapide, autonomie, respect des délais, travail en équipe.</p>
+                <p><em>Plus d'informations à venir après signature de la convention.</em></p>
+            </div>
+        </details>
+    </section>
+
+    <section id="veille">
+        <h2>Veille informationnelle</h2>
+        <details>
+            <summary>🔍 Dispositifs de veille</summary>
+            <div class="details-content">
+                <ul>
+                    <li><strong>Feedly</strong> : agrégateur RSS pour suivre blogs techniques (Medium, Dev.to, ZDNet)</li>
+                    <li><strong>Alertes Google</strong> : sur "sécurité web", "C# .NET 2025"</li>
+                    <li><strong>Newsletters</strong> : Le Big Data, Développez.com, Hackernoon</li>
+                    <li><strong>YouTube</strong> : chaînes technos (Underscore_, Grafikart, etc.)</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>🌐 Thème 1 : Sécurité des applications web</summary>
+            <div class="details-content">
+                <p>Je surveille les failles OWASP Top 10, les bonnes pratiques d'authentification (JWT, OAuth) et la sécurisation des API REST. C'est essentiel pour tout développeur web.</p>
+                <p><strong>Pourquoi ce thème ?</strong> La cybersécurité est un enjeu majeur dans le développement, connaître les vulnérabilités permet de coder plus proprement.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>⚙️ Thème 2 : Évolution de .NET et C#</summary>
+            <div class="details-content">
+                <p>Je suis les mises à jour de .NET, les nouvelles fonctionnalités C# et les bonnes pratiques. C# est un langage central dans ma spécialité SLAM.</p>
+                <p><strong>Sources :</strong> Microsoft Learn, blogs .NET, channel9, reddit r/dotnet.</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- CARTE HEURISTIQUE -->
+    <section id="mindmap">
+        <h2>🗺️ Carte heuristique – Développeur full‑stack</h2>
+        <div class="mindmap">
+            <div class="mindmap-center">🧑‍💻 Développeur full‑stack</div>
+            <div class="mindmap-branches">
+                <div class="mindmap-branch">Front‑end<br><span class="mindmap-sub">HTML/CSS/JS • React • Vue.js • Responsive</span></div>
+                <div class="mindmap-branch">Back‑end<br><span class="mindmap-sub">C# (.NET) • PHP • Java • Python • Node.js</span></div>
+                <div class="mindmap-branch">Base de données<br><span class="mindmap-sub">MySQL • PostgreSQL • MongoDB • SQL Server</span></div>
+                <div class="mindmap-branch">Outils & méthodes<br><span class="mindmap-sub">Git/GitHub • UML • Merise • Tests • Agilité</span></div>
+                <div class="mindmap-branch">DevOps & hébergement<br><span class="mindmap-sub">Docker • CI/CD • Cloud (AWS/Azure)</span></div>
+            </div>
+            <p style="margin-top:1.5rem; font-size:0.8rem; color:#555;">📌 Carte réalisée dans le cadre du BTS SIO – Réflexion sur le métier visé</p>
+        </div>
+    </section>
+
+    <!-- CV - VERSION ORIGINALE (intacte) -->
+    <section id="cv">
+        <h2>Mon CV</h2>
+        <button class="btn-download" id="printCVBtn">📄 Télécharger / Imprimer le CV (PDF)</button>
+        <div class="cv-container" id="cv-print">
+            <div class="cv-header">
+                <div class="cv-header-text">
+                    <h1>Nathan Miles</h1>
+                    <p>Étudiant BTS SIO – Option SLAM | Développement d'applications</p>
+                    <p>📍 40, avenue du 8 mai 1945, Sarcelles • 📞 07 59 59 86 77 • 📧 nathanmiles2407@gmail.com</p>
+                </div>
+            </div>
+            <div class="cv-body">
+                <div class="cv-section">
+                    <h3>Profil</h3>
+                    <p>Étudiant en reconversion motivé, passionné par l'informatique, les univers logiques et créatifs. Parcours varié (bac ES, licence hébreu) ayant confirmé mon intérêt pour les technologies numériques. Calme, méthodique, curieux, je pratique les échecs à bon niveau (~1500 ELO).</p>
+                </div>
+
+                <div class="cv-section">
+                    <h3>Formation</h3>
+                    <div class="cv-grid">
+                        <div class="cv-card"><strong>2025 – 2026</strong><br>BTS SIO option SLAM (1ʀᴇ année)<br>CNED</div>
+                        <div class="cv-card"><strong>2024 – 2025</strong><br>1ʀᴇ année Licence Hébreu<br>Université de Lille</div>
+                        <div class="cv-card"><strong>2023 – 2024</strong><br>Bac ES (Maths / SES)</div>
+                    </div>
+                </div>
+
+                <div class="cv-section">
+                    <h3>Compétences techniques (en cours)</h3>
+                    <div class="cv-grid">
+                        <div class="cv-card"><strong>Langages :</strong> C#, PHP, HTML/CSS/JS, Java, Python</div>
+                        <div class="cv-card"><strong>SGBD :</strong> MySQL, PostgreSQL, MongoDB</div>
+                        <div class="cv-card"><strong>CMS :</strong> WordPress</div>
+                        <div class="cv-card"><strong>Outils :</strong> Git/GitHub, VS, NetBeans, Eclipse</div>
+                        <div class="cv-card"><strong>Méthodes :</strong> Merise, UML, KISS/DRY/SOLID</div>
+                        <div class="cv-card"><strong>Bureautique :</strong> Word, Excel, PowerPoint</div>
+                    </div>
+                </div>
+
+                <div class="cv-section">
+                    <h3>Qualités personnelles</h3>
+                    <ul>
+                        <li>Calme, patient, réfléchi</li>
+                        <li>Esprit stratégique et logique (échecs ~1500 ELO)</li>
+                        <li>Curieux, autonome dans l'apprentissage</li>
+                        <li>Créatif et attentif aux détails</li>
+                    </ul>
+                </div>
+
+                <div class="cv-section">
+                    <h3>Centres d'intérêt</h3>
+                    <ul>
+                        <li>Échecs (pratique régulière, classé ~1500 ELO)</li>
+                        <li>Création numérique : modélisation 3D (Blender)</li>
+                        <li>Jeux vidéo stratégiques et logique</li>
+                        <li>Auto-apprentissage tech (YouTube, OpenClassrooms)</li>
+                    </ul>
+                </div>
+
+                <div class="cv-section">
+                    <h3>Objectif</h3>
+                    <p>Intégrer une entreprise en <strong>alternance dès septembre 2026</strong> pour valider ma 2ᵉ année de BTS SIO et construire mon projet professionnel dans le développement logiciel.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-info">
+            <p>📧 <strong>Email :</strong> nathanmiles2407@gmail.com</p>
+            <p>📞 <strong>Téléphone :</strong> 07 59 59 86 77</p>
+            <p>🐙 <strong>GitHub :</strong> <a href="#">github.com/nathanmiles</a> (en cours de finalisation)</p>
+        </div>
+        
+        <div class="contact-form">
+            <h3>Formulaire de contact</h3>
+            <form action="#" method="get">
+                <label>Nom :</label>
+                <input type="text" name="nom" required>
+                <label>Email :</label>
+                <input type="email" name="email" required>
+                <label>Message :</label>
+                <textarea rows="3" required></textarea>
+                <input type="submit" value="Envoyer (simulation)">
+            </form>
+            <p><em>Formulaire de démonstration – les messages ne sont pas encore envoyés.</em></p>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>Nathan Miles - BTS SIO SLAM - Portfolio 2025-2026</p>
+</footer>
+
+<script>
+    document.getElementById('printCVBtn').addEventListener('click', function() {
+        var cvContent = document.getElementById('cv-print').cloneNode(true);
+        var printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><head><title>CV_Nathan_Miles</title>');
+        printWindow.document.write('<style>');
+        printWindow.document.write(`
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: white; padding: 20px; }
+            .cv-container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+            .cv-header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 2rem; text-align: center; }
+            .cv-header-text h1 { font-size: 2.2rem; margin-bottom: 0.25rem; }
+            .cv-header-text p { font-size: 1.1rem; opacity: 0.9; margin: 0.5rem 0; }
+            .cv-body { padding: 2rem; }
+            .cv-section { margin-bottom: 1.8rem; }
+            .cv-section h3 { color: #1e3c72; border-left: 4px solid #1e3c72; padding-left: 0.8rem; margin-bottom: 1rem; }
+            .cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+            .cv-card { background: #f9f9f9; padding: 0.8rem; border-radius: 8px; }
+            .cv-card strong { color: #1e3c72; }
+            ul { margin-left: 1.5rem; }
+            .btn-download { display: none; }
+        `);
+        printWindow.document.write('</style></head><body>');
+        printWindow.document.write(cvContent.innerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    });
+</script>
+
+</body>
+</html>
